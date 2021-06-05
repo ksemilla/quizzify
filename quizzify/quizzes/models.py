@@ -1,4 +1,3 @@
-from typing import Text
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -6,7 +5,6 @@ from django.utils import timezone
 from quizzify.users.models import (
     StampedModel,
     User,
-    Team,
 )
 
 class Quiz(StampedModel):
@@ -15,7 +13,7 @@ class Quiz(StampedModel):
         DEFAULT         = 'default', _('Default')
         LIMITED         = 'limited', _('Limited')
 
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    # team = models.ForeignKey(Team, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     summary = models.CharField(max_length=256)
 
