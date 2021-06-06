@@ -11,7 +11,11 @@ from .serializers import (
     OrganizationSerializer
 )
 
-class OrganizationCreateView(APIView):
+from .models import (
+    Organization
+)
+
+class OrganizationListCreateView(APIView):
     permission_classes = [IsAuthenticated, AdminPermission]
 
     def post(self, request):
@@ -28,4 +32,19 @@ class OrganizationCreateView(APIView):
         return Response(
             serializers.errors,
             status=status.HTTP_400_BAD_REQUEST
+        )
+
+    def get(self, request):
+        queryset = Organization.objects.all()
+        return Response(
+            OrganizationSerializer(queryset, many=True).data,
+            status=status.HTTP_200_OK
+        )
+
+class OrganizationRetrieveUpdateDelete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        return Response(
+            status=status.HTTP_200_OK
         )
