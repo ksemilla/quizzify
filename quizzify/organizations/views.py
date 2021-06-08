@@ -45,6 +45,8 @@ class OrganizationRetrieveUpdateDelete(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
+        organization = Organization.objects.filter(pk=pk).first()
         return Response(
+            OrganizationSerializer(organization).data,
             status=status.HTTP_200_OK
         )
